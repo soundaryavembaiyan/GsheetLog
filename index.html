@@ -19,44 +19,52 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         background-color: #fff;
       }
+      .subbtn{
+        margin-top: 20px;
+        width: 30%;
+        background: #004d87;
+        margin-left: auto;
+      }
+      .lets{
+        color:#004d87;
+      }
+      .labtext{
+/*        color:#004d87;
+        font-size: 14px;
+        font-family: 600;
+        */
+      }
     </style>
   </head>
   <body class="bg-light">
     <div class="container">
       <div class="form-container">
-        <h4 class="text-center mb-4">Lets's Connect</h4>
+        <h4 class="text-center mb-4 lets">Let's Connect!!!</h4>
         <form id="submit-to-google-sheet">
           <div class="form-group">
-            <label for="name">Name:</label>
-            <input
-              class="form-control"
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Name"
-              required
-            />
+            <label for="name" class="labtext">Name:</label>
+            <input class="form-control"  type="text" name="name" id="name" placeholder="Your Name" required/>
           </div>
           <div class="form-group">
-            <label for="email">Email:</label>
-            <input class="form-control" type="email" name="email" id="email" placeholder="Email" required />
+            <label for="email" class="labtext">Email:</label>
+            <input class="form-control" type="email" name="email" id="email" placeholder="Your Email Address" required />
           </div>
           <div class="form-group">
-            <label for="slip">Contact Number:</label>
-            <input class="form-control" type="text" name="contact_number" id="contact_number" placeholder="Contact Number" required />
+            <label for="slip" class="labtext">Mobile Number:</label>
+            <input class="form-control" type="text" name="contact_number" id="contact_number" placeholder="Your Mobile Number"  />
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="loc">Gender:</label>
             <select class="form-control" name="gender" id="gender" required>
               <option value="" disabled selected hidden>Choose...</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
-          </div>
+          </div> -->
           <div class="form-group">
-            <label for="loc">Message:</label>
-            <textarea class="form-control" name="message" id="message" placeholder="Message" required></textarea>
+            <label for="loc" class="labtext">Message:</label>
+            <textarea class="form-control" name="message" id="message" placeholder="Message(optional)"></textarea>
           <!-- <div class="form-group form-check mt-2">
             <input class="form-check-input" type="checkbox" id="age" />
             <label class="form-check-label" for="age"
@@ -70,7 +78,7 @@
               terms and policies.
             </label>
           </div> -->
-          <button type="submit" class="btn btn-primary btn-block" style="margin-top: 20px;">
+          <button type="submit" class="btn btn-primary btn-block subbtn" style="margin-top: 20px;">
             Submit
           </button>
         </form>
@@ -80,32 +88,32 @@
     <script>
       const scriptURL = "https://script.google.com/macros/s/AKfycbwE70NnflXJi3vpsW10sV9DuWD8TB04YDcsdEBmYjO6hPCL-c56NYFdylojy1EjbueF/exec";
       const form = document.forms["submit-to-google-sheet"];
+
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        var formData = new FormData(form);
-       // var ex = document.getElementById("ex").checked;
-       // var age = document.getElementById("age").checked;
 
-        // if (age) {
-        //   formData.append("age", "Yes");
-        // } else {
-        //   formData.append("age", "No");
-        // }
-        // if (ex) {
-        //   formData.append("ex", "Yes");
-        // } else {
-        //   formData.append("ex", "No");
-        // }
+        var formData = new FormData(form);
+
+        // Show Loader
+        swal({
+          title: "Submitting...",
+          text: "Please wait",
+          allowOutsideClick: false,
+          onOpen: () => {
+            swal.showLoading();
+          }
+        });
 
         fetch(scriptURL, { method: "POST", body: formData })
           .then((response) => {
             swal("Done", "Submitted Successfully.", "success");
-            form.reset(); // Reset the form
+            form.reset();
           })
           .catch((error) => {
-            swal("Error", "Something went wrong. please try again!", "error");
+            swal("Error", "Something went wrong. Please try again!", "error");
           });
       });
+
     </script>
   </body>
 </html>
